@@ -2,12 +2,20 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>user-info</title>
+    <title>Title</title>
 </head>
-<h1>User</h1>
 <body>
+<h1>Admin</h1>
 <form th:method="GET" th:action="@{/}">
     <input type="submit" value="HOME"/>
+</form>
+<br>
+<form th:method="GET" th:action="@{/api/users}">
+    <input type="submit" value="CRUD"/>
+</form>
+<br>
+<form th:method="GET" th:action="@{/user}">
+    <input type="submit" value="USER"/>
 </form>
 </body>
 </html>
