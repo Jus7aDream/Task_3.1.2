@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>user-info</title>
 </head>
-<h2>Add User card</h2>
 <body>
+<h2>Add User card</h2>
 <form th:method="POST" th:action="@{/admin/users}" th:object="${user}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -30,7 +30,18 @@
     <input type="text" th:field="*{password}" id="password"/>
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name error</div>
     <br>
+    <h2>Select User Role:</h2>
+    <p>
+        <input type="checkbox" id="admin" name="roles" value="1"><label for="admin"> Admin</label>
+        <br/>
+        <input type="checkbox" id="user" name="roles" value="2" checked><label for="user"> User</label>
+    </p>
     <input type="submit" value="Apply"/>
 </form>
+<br>
+<form th:method="POST" th:action="@{/logout}">
+    <button type="submit">Log Out</button>
+</form>
+<br>
 </body>
 </html>

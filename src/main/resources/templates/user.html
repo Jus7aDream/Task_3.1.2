@@ -9,8 +9,14 @@
 </head>
 <h1>User</h1>
 <body>
+<br>
 <form th:method="GET" th:action="@{/}">
     <input type="submit" value="HOME"/>
 </form>
+<br>
+<form th:method="POST" th:action="@{/logout}">
+    <button type="submit">Log Out</button>
+</form>
+<br>
 </body>
 </html>

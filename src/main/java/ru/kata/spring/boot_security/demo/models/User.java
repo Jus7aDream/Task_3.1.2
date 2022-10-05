@@ -29,16 +29,6 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @NotEmpty(message = "Username should not be empty")
-    @Size(min = 3, max = 255, message = "Username should be between 3 and 255 characters")
-    @Column(name = "username")
-    private String username;
-
-    @NotEmpty(message = "Password should not be empty")
-    @Size(min = 3, max = 255, message = "Password should be between 3 and 255 characters")
-    @Column(name = "password")
-    private String password;
-
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 3, max = 255, message = "Name should be between 3 and 255 characters")
     @Column(name = "name")
@@ -53,6 +43,16 @@ public class User implements UserDetails {
     @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
+
+    @NotEmpty(message = "Username should not be empty")
+    @Size(min = 3, max = 255, message = "Username should be between 3 and 255 characters")
+    @Column(name = "username")
+    private String username;
+
+    @NotEmpty(message = "Password should not be empty")
+    @Size(min = 3, max = 255, message = "Password should be between 3 and 255 characters")
+    @Column(name = "password")
+    private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",

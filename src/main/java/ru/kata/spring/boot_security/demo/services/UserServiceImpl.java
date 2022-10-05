@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        log.info("Getting all users");
+        log.info("Getting all users.sql");
         return userRepo.findAll();
     }
 
