@@ -1,7 +1,8 @@
 package ru.kata.spring.boot_security.demo.models;
 
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +11,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @ In the name of Allah, most gracious and most merciful 12.09.2022
@@ -52,10 +55,10 @@ public class User implements UserDetails {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new LinkedHashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -81,4 +84,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
