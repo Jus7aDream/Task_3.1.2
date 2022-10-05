@@ -36,19 +36,19 @@ public class ApiController {
                              @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "/api/userCard";
-        userService.addUser(user);
+        userService.creatUser(user);
         return "redirect:/api/users";
     }
 
     @GetMapping("users/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.readUserById(id));
         return "api/user_id";
     }
 
     @GetMapping("users/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.readUserById(id));
         return "api/edit";
     }
 

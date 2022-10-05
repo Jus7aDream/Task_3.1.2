@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -25,14 +27,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
+    public void creatUser(User user) {
         log.info("Saving user: {}", user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getUserById(Long id) {
+    public User readUserById(Long id) {
         log.info("Getting user with id: {}", id);
         return userRepo.findById(id).orElse(null);
     }

@@ -43,6 +43,7 @@ public class User {
 
 
     @Min(value = 0, message = "Age should be greater than 0")
+//    @Size(min = 1, max = 3, message = "Age should be between 1 and 3 characters")
     @Column(name = "age")
     private int age;
 
