@@ -12,6 +12,6 @@ import ru.kata.spring.boot_security.demo.models.User;
 @Repository
 @Transactional
 public interface UserRepo extends JpaRepository<User, Long> {
-//    @Query("SELECT u FROM User u WHERE u.username=?1")
+    @Query("SELECT u FROM User u WHERE u.username=?1")
     User findByUsername(String username);
 }
