@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>all-users</title>
@@ -34,12 +37,12 @@
         <td th:text="${user.password}">
         </td>
         <td>
-            <form th:action="@{/api/users/{id}/edit(id=${user.getId()})}">
+            <form th:action="@{/admin/users/{id}/edit(id=${user.getId()})}">
                 <button>Edit user</button>
             </form>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/api/users/{id}(id=${user.getId()})}">
+            <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
                 <input type="submit" value="Delete user"/>
             </form>
         </td>
@@ -47,7 +50,7 @@
     </tbody>
 </table>
 <br>
-<form th:method="GET" th:action="@{/api/userCard}">
+<form th:method="GET" th:action="@{/admin/userCard}">
     <input type="submit" value="Add new user"/>
 </form>
 </body>

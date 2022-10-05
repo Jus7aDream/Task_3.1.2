@@ -15,41 +15,50 @@ import javax.validation.Valid;
  */
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("api")
-public class ApiController {
+@RequestMapping("admin")
+public class AdminController {
     private final UserService userService;
+    @GetMapping()
+    public String start() {
+        return "index";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin/admin";
+    }
 
     @GetMapping("users")
     public String showAllUsers(Model model) {
         model.addAttribute("allUsers", userService.getAllUsers());
-        return "api/users";
+        return "admin/users";
     }
 
     @GetMapping("userCard")
     public String userCard(Model model) {
         model.addAttribute("user", new User());
-        return "api/userCard";
+        return "admin/userCard";
     }
 
     @PostMapping("users")
     public String createUser(@ModelAttribute("user")
                              @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "/api/userCard";
+            return "/admin/userCard";
         userService.createUser(user);
-        return "redirect:/api/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("users/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
-        return "api/user_id";
+        return "admin/user_id";
     }
 
     @GetMapping("users/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.findUserById(id));
-        return "api/edit";
+        return "admin/edit";
     }
 
     @PatchMapping("users/{id}")
@@ -57,14 +66,14 @@ public class ApiController {
                          @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
         if (bindingResult.hasErrors())
-            return "api/edit";
+            return "admin/edit";
         userService.updateUser(id, user);
-        return "redirect:/api/users";
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping("/users/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/api/users";
+        return "redirect:/admin/users";
     }
 }
