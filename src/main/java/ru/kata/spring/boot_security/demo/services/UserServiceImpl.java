@@ -2,6 +2,9 @@ package ru.kata.spring.boot_security.demo.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +17,10 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepo userRepo;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -27,16 +30,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void creatUser(User user) {
+    public void createUser(User user) {
         log.info("Saving user: {}", user);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        boolean
+//        User userFromDB = userRepo.findByUsername(user.getUsername());
+//        if (userFromDB != null) {
+//            return false;
+//        }
+//        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        userRepo.save(user);
+//        return true;
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User readUserById(Long id) {
+    public User findUserById(Long id) {
         log.info("Getting user with id: {}", id);
+//        Optional<User> userFromDb = userRepo.findById(id);
+//        return userFromDb.orElse(new User());
         return userRepo.findById(id).orElse(null);
     }
 
@@ -52,8 +66,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
-        log.info("Delete user by id: {}", id);
-        userRepo.deleteById(id);
+    public boolean deleteUser(Long id) {
+        log.info("Try to delete user by id: {}", id);
+
+        if (userRepo.findById(id).isPresent()) {
+            userRepo.deleteById(id);
+            log.info("User by id: {} deleted", id);
+            return true;
+        }
+        log.info("Try to delete user by id: {} failed", id);
+        return false;
+
+//        userRepo.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user;
+
     }
 }
