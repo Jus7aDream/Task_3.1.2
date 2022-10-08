@@ -27,7 +27,7 @@ public class AdminController {
 
     @GetMapping("users")
     public String showAllUsers(Model model) {
-        model.addAttribute("allUsers", userService.findAllUsers());
+        model.addAttribute("users", userService.findAllUsers());
         return "admin/users";
     }
 
@@ -35,13 +35,6 @@ public class AdminController {
     public String userCard(Model model) {
         model.addAttribute("user", new User());
         return "admin/userCard";
-    }
-
-    @GetMapping("users/{id}")
-    public String getUserById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findUserById(id));
-        return "user";
-//        return "admin/user_id";
     }
 
     @PostMapping("users")
@@ -68,43 +61,15 @@ public class AdminController {
         userService.updateUser(user);
         return "redirect:/admin/users";
     }
+    @GetMapping("users/{id}")
+    public String getUserById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", userService.findUserById(id));
+        return "user";
+    }
 
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin/users";
     }
-//****************************************************************
-
-
-//***************************************************************
-//    @GetMapping("all")
-//    public ResponseEntity<List<User>> getAllUsers() {
-//        List<User> users = userService.findAllUsers();
-//        return new ResponseEntity<>(users, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("find/{id}")
-//    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-//        User user = userService.findUserById(id);
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/add")
-//    public ResponseEntity<User> addUser(@RequestBody User user) {
-//        User newUser = userService.addUser(user);
-//        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/update")
-//    public ResponseEntity<User> updateUser(@RequestBody User user) {
-//        User updateUser = userService.updateUser(user);
-//        return new ResponseEntity<>(updateUser, HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping ("/delete/{id}")
-//    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
-//        userService.deleteUser(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 }

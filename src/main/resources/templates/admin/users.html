@@ -33,13 +33,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${allUsers}">
+    <tr th:if="${users==null}">
+        <td colspan="2"> No Users Available</td>
+    </tr>
+    <tr th:each="user : ${users}">
         <td th:text="${user.id}">
         <td th:text="${user.firstName}">
         <td th:text="${user.lastName}">
         <td th:text="${user.age}">
         <td th:text="${user.email}">
-        <td th:text="${user.roles}">
         <td th:text="${user.username}">
         <td th:text="${user.password}">
         <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit</a></td>
