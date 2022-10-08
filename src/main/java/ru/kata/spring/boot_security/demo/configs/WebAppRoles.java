@@ -8,6 +8,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum WebAppRoles {
     SUPERADMIN,
-    ADMIN,
-    USER
+    ROLE_ADMIN,
+    ROLE_USER
 }

@@ -11,14 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
+import ru.kata.spring.boot_security.demo.services.UserService;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(daoAuthenticationProvider());
@@ -54,18 +55,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userService);
         return provider;
     }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .authorities("ROLE_ADMIN")
-//                .and()
-//                .withUser("user")
-//                .password(passwordEncoder().encode("user"))
-//                .authorities("ROLE_USER")
-//        ;
-//    }
 }

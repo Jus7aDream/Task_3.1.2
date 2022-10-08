@@ -1,8 +1,28 @@
-INSERT INTO schema_hiber.users (id, age, email, name, password, username)
-VALUES (1, 33, 'admin@gmail.com', 'Admin', '$2a$12$msszkBkvAFCV8ee3IeG26uIScwNa2Mk47VVHd11UP57gMTMRpnHae', 'admin');
+ALTER TABLE `users`
+    MODIFY `first_name` varchar(255) AFTER `id`;
 
-INSERT INTO schema_hiber.users (id, age, email, name, password, username)
-VALUES (2, 33, 'user@gmail.com', 'User', '$2a$12$U0QkgLP.T1DgMoaATnDPy.2nDD5Di4rbzhH5yX2GYgtvbi.sdEqy.', 'user');
+ALTER TABLE `users`
+    MODIFY `last_name` varchar(255) AFTER `first_name`;
+
+ALTER TABLE `users`
+    MODIFY `age` BIGINT AFTER `last_name`;
+
+ALTER TABLE `users`
+    MODIFY `email` varchar(255) AFTER `age`;
+
+ALTER TABLE `users`
+    MODIFY `username` varchar(255) AFTER `email`;
+
+ALTER TABLE `users`
+    MODIFY `password` varchar(255) AFTER `username`;
+
+
+INSERT INTO schema_hiber.users (id, first_name, last_name, age, email, password, username)
+VALUES (1, 'firstAdmin', 'lastAdmin',33, 'admin@gmail.com', '$2a$12$msszkBkvAFCV8ee3IeG26uIScwNa2Mk47VVHd11UP57gMTMRpnHae', 'admin');
+
+INSERT INTO schema_hiber.users (id, first_name, last_name, age, email, password, username)
+VALUES (2, 'firstUser', 'lastUser', 33, 'user@gmail.com', '$2a$12$U0QkgLP.T1DgMoaATnDPy.2nDD5Di4rbzhH5yX2GYgtvbi.sdEqy.', 'user');
+
 
 INSERT INTO schema_hiber.roles (id, name)
 VALUES (1, 'ROLE_ADMIN');
