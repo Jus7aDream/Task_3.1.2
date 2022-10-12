@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 
 import javax.validation.Valid;
 
@@ -17,11 +17,10 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("admin")
 public class AdminController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @GetMapping("/admin")
-    public String admin(Model model) {
-        model.addAttribute("model");
+    public String admin() {
         return "admin/admin";
     }
 
@@ -56,11 +55,13 @@ public class AdminController {
     public String updateUser(@ModelAttribute("user")
                              @Valid User user, BindingResult bindingResult,
                              @PathVariable("id") Long id) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "admin/edit";
+        }
         userService.updateUser(user);
         return "redirect:/admin/users";
     }
+
     @GetMapping("users/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findUserById(id));

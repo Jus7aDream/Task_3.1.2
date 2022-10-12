@@ -18,7 +18,7 @@ ALTER TABLE `users`
 
 
 INSERT INTO schema_hiber.users (id, first_name, last_name, age, email, password, username)
-VALUES (1, 'firstAdmin', 'lastAdmin',33, 'admin@gmail.com', '$2a$12$msszkBkvAFCV8ee3IeG26uIScwNa2Mk47VVHd11UP57gMTMRpnHae', 'admin');
+VALUES (1, 'firstAdmin', 'lastAdmin',33, 'admin@gmail.com', '$2a$12$5yrf8l3IuWuZQlooGVVvT.oeUUkMmXRowU4LDrEdOkGaGXa.igxdG', 'admin');
 
 INSERT INTO schema_hiber.users (id, first_name, last_name, age, email, password, username)
 VALUES (2, 'firstUser', 'lastUser', 33, 'user@gmail.com', '$2a$12$U0QkgLP.T1DgMoaATnDPy.2nDD5Di4rbzhH5yX2GYgtvbi.sdEqy.', 'user');

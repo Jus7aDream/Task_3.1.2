@@ -22,7 +22,6 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @NotEmpty(message = "Username should not be empty")
     @Size(min = 2, max = 255, message = "Username should be between 2 and 255 characters")
     @Column(name = "name")
