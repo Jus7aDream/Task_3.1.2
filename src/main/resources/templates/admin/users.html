@@ -46,8 +46,11 @@
         <td th:text="${user.username}">
         <td th:text="${user.password}">
         <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit</a></td>
-        <td th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
-            <input type="submit" value="Delete"/>
+
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
         </td>
     </tr>
     </tbody>
